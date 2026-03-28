@@ -1,9 +1,9 @@
 # myRadio Editor v1.0
 
 <p align="center">
-  <!-- 
+  <!--
+  <img src="https://img.shields.io/github/downloads/gidano/myRadio-Editor/total?style=for-the-badge&cacheSeconds=60" alt="Total Downloads"> 
   -->
-  <img src="https://img.shields.io/github/downloads/gidano/myRadio-Editor/total?style=for-the-badge&cacheSeconds=60" alt="Total Downloads">
   <img src="https://img.shields.io/github/stars/gidano/myRadio-Editor?style=for-the-badge" alt="Stars">
   <img src="https://img.shields.io/github/repo-size/gidano/myRadio-Editor?style=for-the-badge" alt="Repo size">
 </p>

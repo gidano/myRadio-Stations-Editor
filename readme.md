@@ -62,3 +62,12 @@ A mérete azért ekkora, mert tartalmazza a Python és Qt futtatókörnyezetet, 
 
 **Direct download:**  
 [myRadio Editor](https://github.com/gidano/myRadio-Editor/releases/tag/1.0)
+
+## 📜 License
+
+This project is licensed under CC BY-NC 4.0 with required attribution.
+
+You are free to use and modify this project for non-commercial purposes,  
+but you must give visible credit and link to the original repository.
+
+See the [LICENSE](LICENSE) file for full details.

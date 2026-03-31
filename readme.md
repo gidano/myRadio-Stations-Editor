@@ -1,4 +1,4 @@
-# myRadio Stations Editor
+# myRadio Stations Editor (HU/EN)
 
 A **myRadio Stations Editor** egy kétnyelvű (magyar/angol) Windows alkalmazás, amely jelentősen megkönnyíti az ESP32-alapú **myRadio** (és részben a **yoRadio**) webrádiók **stations.txt** állomáslistájának kezelését.
 

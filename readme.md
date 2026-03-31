@@ -1,73 +1,119 @@
-# myRadio Stations Editor v1.0
+# myRadio Stations Editor
 
-<p align="center">
-  <!--
-  <img src="https://img.shields.io/github/downloads/gidano/myRadio-Editor/total?style=for-the-badge&cacheSeconds=60" alt="Total Downloads"> 
-  -->
-  <img src="https://img.shields.io/github/stars/gidano/myRadio-Editor?style=for-the-badge" alt="Stars">
-  <img src="https://img.shields.io/github/repo-size/gidano/myRadio-Editor?style=for-the-badge" alt="Repo size">
-</p>
+A **myRadio Stations Editor** egy kétnyelvű (magyar/angol) Windows alkalmazás, amely jelentősen megkönnyíti az ESP32-alapú **myRadio** (és részben a **yoRadio**) webrádiók **stations.txt** állomáslistájának kezelését.
 
-A **myRadio Stations Editor** egy kétnyelvű (HU/EN) Windows alkalmazás, amely megkönnyíti a rádió **stations.txt** állomáslistájának kezelését.
-
-Az alkalmazás képes letölteni az aktuális lejátszási listát a rádió **IP-címe alapján**, vagy betölteni egy meglévő listát a számítógépről.
+Az alkalmazás két módon töltheti be a listát:
+- közvetlenül letölti az aktuális lejátszási listát a rádió **IP-címe** alapján,
+- vagy betölt egy meglévő állomáslistát a számítógépedről.
 
 ---
 
 ## Képernyőkép
 
-![myRadio Staions Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_stations_Editor.jpg)
+![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_stations_Editor.jpg)
 
 ---
 
 ## Fő funkciók
 
-- 📡 **Lista letöltése a rádióról** IP-cím alapján (yoRadio-ról is, a playlist.csv fájlt)  
-- 💾 **Lista betöltése és mentése** PC-ről / PC-re (yoRadio .csv formátumot is, majd stations.txt fájlként kezeli és menti)  
-- ✏️ **Állomások szerkesztése és módosítása**
-- 🔤 **ABC szerinti rendezés**
-- 🖱️ **Drag & drop átrendezés** – állomások tetszőleges sorrendbe húzhatók
-- ➕ **Másik lista hozzáfűzése**
+- 📡 **Lista letöltése a rádióról** – IP-cím megadásával (myRadio és yoRadio esetén is, utóbbinál a `playlist.csv` fájlt)
+- 💾 **Lista betöltése és mentése** a számítógépről / számítógépre  
+  (támogatja a yoRadio `.csv` formátumát is, belsőleg `stations.txt` formátumban kezeli és menti)
+- ✏️ **Állomások részletes szerkesztése** (név, stream URL, stb.)
+- 🔤 **ABC szerinti rendezés** egy kattintással
+- 🖱️ **Drag & drop átrendezés** – az állomásokat szabadon húzogatva tetszőleges sorrendbe rakhatod
+- ➕ **Másik lista hozzáfűzése** (több lista egyesítése)
 - 📤 **Lista visszatöltése a rádióra**  
-  - újraindítás után a rádió már az új listát használja
+  → újraindítás után a rádió már az új, módosított listát használja
 
 ---
 
 ## Ellenőrző és karbantartó funkciók
 
-Az alkalmazás segít a lista tisztán tartásában is:
-
-- ✔️ **Stream URL-ek működésének ellenőrzése**
-- 🔍 **Duplikált állomások keresése**
-- 🧹 Duplikátumok törlése:
-  - egyesével
-  - vagy **egy gombnyomással az összes**
+- ✔️ **Stream URL-ek működésének ellenőrzése** (működik-e az adott állomás)
+- 🔍 **Duplikált állomások automatikus keresése**
+- 🧹 **Duplikátumok törlése**  
+  – egyesével  
+  – vagy **egy gombnyomással az összes** duplikátum
 
 ---
 
 ## Lista szerkesztés
 
-- 🆕 Új állomások hozzáadása  
-- 📄 Meglévő állomások **duplikálása szerkesztés előtt**  
-- ✏️ Teljes lista szabad szerkesztése  
+- 🆕 **Új állomások** hozzáadása
+- 📄 Meglévő állomások **duplikálása** (biztonságos szerkesztéshez)
+- ✏️ A teljes lista szabad szerkesztése táblázatos felületen
 
 ---
 
 ## Használati cél
 
-A program célja, hogy a **stations.txt fájl szerkesztése kényelmesen, grafikus felületen történjen**, kézi szövegszerkesztés nélkül.
-A mérete azért ekkora, mert tartalmazza a Python és Qt futtatókörnyezetet, hogy használata ne követelje meg ezek külön telepítését is a PC-re. 
+A program célja, hogy a **stations.txt** fájl szerkesztése kényelmes, grafikus felületen történjen, anélkül, hogy kézzel kellene szövegszerkesztőben módosítanod a fájlt.
+
+Az exe fájl mérete nagyobb (kb. 30–40 MB), mert **tartalmazza a Python és Qt futtatókörnyezetet** is. Így nem kell külön telepítened semmit a számítógépedre – egyszerűen csak futtatod az exe-t.
 
 ---
 
-**Direct download:**  
-[myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/releases/tag/1.0)
+## English Version
 
-## 📜 License
+**myRadio Stations Editor** is a bilingual (Hungarian/English) Windows application that makes managing the station list (**stations.txt**) of **myRadio** (and partially **yoRadio**) internet radios significantly easier.
 
-This project is licensed under CC BY-NC 4.0 with required attribution.
+The application can load the playlist in two ways:
+- by downloading the current station list directly from the radio using its **IP address**,
+- or by loading an existing list from your computer.
 
-You are free to use and modify this project for non-commercial purposes,  
-but you must give visible credit and link to the original repository.
+---
 
-See the [LICENSE](LICENSE) file for full details.
+### Screenshot
+
+![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_stations_Editor.jpg)
+
+---
+
+### Main Features
+
+- 📡 **Download list from the radio** via IP address (supports both myRadio and yoRadio – for yoRadio it uses the `playlist.csv` file)
+- 💾 **Load and save list** from/to PC  
+  (supports yoRadio `.csv` format as well, internally works with and saves as `stations.txt`)
+- ✏️ **Detailed station editing** (name, stream URL, etc.)
+- 🔤 **Sort alphabetically** with one click
+- 🖱️ **Drag & drop reordering** – freely rearrange any station in the desired order
+- ➕ **Append another list** (merge multiple station lists)
+- 📤 **Upload list back to the radio**  
+  → after restarting the radio, it will use the new, modified list
+
+---
+
+### Checking and Maintenance Tools
+
+- ✔️ **Verify stream URLs** – check whether each station is working
+- 🔍 **Find duplicate stations** automatically
+- 🧹 **Remove duplicates**  
+  – individually  
+  – or **all duplicates at once** with a single button
+
+---
+
+### Station List Editing
+
+- 🆕 Add new stations
+- 📄 **Duplicate** existing stations (for safe editing)
+- ✏️ Full free editing of the entire list in a table view
+
+---
+
+### Purpose
+
+The goal of the program is to allow comfortable, graphical editing of the **stations.txt** file without the need for manual text editing, which often leads to errors.
+
+The executable is larger (~30–40 MB) because it **includes the Python and Qt runtime**. No additional installation is required on your PC – just run the .exe file.
+
+---
+
+## Direct Download
+
+**[Download myRadio Stations Editor v1.0](https://github.com/gidano/myRadio-Editor/releases/tag/1.0)**
+
+---
+
+Ha szeretnéd, hogy még részletesebb legyen (pl. rendszerkövetelmények, telepítési útmutató, changelog, vagy támogatott rádiók listája), vagy ha finomhangolást szeretnél a szövegen, nyugodtan mondd meg!

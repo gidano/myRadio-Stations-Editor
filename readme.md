@@ -1,4 +1,4 @@
-# myRadio Editor v1.0
+# myRadio Stations Editor v1.0
 
 <p align="center">
   <!--

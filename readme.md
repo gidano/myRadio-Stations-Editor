@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/github/repo-size/gidano/myRadio-Editor?style=for-the-badge" alt="Repo size">
 </p>
 
-A **myRadio Editor** egy kétnyelvű (HU/EN) Windows alkalmazás, amely megkönnyíti a rádió **stations.txt** állomáslistájának kezelését.
+A **myRadio Stations Editor** egy kétnyelvű (HU/EN) Windows alkalmazás, amely megkönnyíti a rádió **stations.txt** állomáslistájának kezelését.
 
 Az alkalmazás képes letölteni az aktuális lejátszási listát a rádió **IP-címe alapján**, vagy betölteni egy meglévő listát a számítógépről.
 

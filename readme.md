@@ -10,7 +10,7 @@ Az alkalmazás két módon töltheti be a listát:
 
 ## Képernyőkép
 
-![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_stations_Editor.jpg)
+![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_Stations_Editor-HU_v1.1.jpg)
 
 ---
 
@@ -18,8 +18,9 @@ Az alkalmazás két módon töltheti be a listát:
 
 - 📡 **Lista letöltése a rádióról** – IP-cím megadásával (myRadio és yoRadio esetén is, utóbbinál a `playlist.csv` fájlt)
 - 💾 **Lista betöltése és mentése** a számítógépről / számítógépre  
-  (támogatja a yoRadio `.csv` formátumát is, belsőleg `stations.txt` formátumban kezeli és menti)
+  (olvassa a yoRadio `.csv` formátumát is, belsőleg `stations.txt` formátumban kezeli és menti)
 - ✏️ **Állomások részletes szerkesztése** (név, stream URL, stb.)
+- ✏️ **Képesség az állomásnév kis/nagy betűsre alakaítása**
 - 🔤 **ABC szerinti rendezés** egy kattintással
 - 🖱️ **Drag & drop átrendezés** – az állomásokat szabadon húzogatva tetszőleges sorrendbe rakhatod
 - ➕ **Másik lista hozzáfűzése** (több lista egyesítése)
@@ -66,7 +67,7 @@ The application can load the playlist in two ways:
 
 ### Screenshot
 
-![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_stations_Editor.jpg)
+![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_Stations_Editor-EN_v1.1.jpg)
 
 ---
 
@@ -74,8 +75,9 @@ The application can load the playlist in two ways:
 
 - 📡 **Download list from the radio** via IP address (supports both myRadio and yoRadio – for yoRadio it uses the `playlist.csv` file)
 - 💾 **Load and save list** from/to PC  
-  (supports yoRadio `.csv` format as well, internally works with and saves as `stations.txt`)
+  (It also reads the yoRadio `.csv` format, but internally handles and saves it in the `stations.txt` format)
 - ✏️ **Detailed station editing** (name, stream URL, etc.)
+- ✏️ **Ability to convert station names to uppercase or lowercase**
 - 🔤 **Sort alphabetically** with one click
 - 🖱️ **Drag & drop reordering** – freely rearrange any station in the desired order
 - ➕ **Append another list** (merge multiple station lists)

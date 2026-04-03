@@ -1,121 +1,147 @@
-# myRadio Stations Editor (HU/EN)
+# myRadio Stations Editor
 
-A **myRadio Stations Editor** egy kétnyelvű (magyar/angol) Windows alkalmazás, amely jelentősen megkönnyíti az ESP32-alapú **myRadio** (és részben a **yoRadio**) webrádiók **stations.txt** állomáslistájának kezelését.
+## 🇭🇺 Leírás
 
-Az alkalmazás két módon töltheti be a listát:
-- közvetlenül letölti az aktuális lejátszási listát a rádió **IP-címe** alapján,
-- vagy betölt egy meglévő állomáslistát a számítógépedről.
+A **myRadio Stations Editor** egy egyszerű, mégis hatékony Windows alkalmazás, amely ESP32 alapú internet rádiók állomáslistájának kezelésére készült.
 
----
+Elsődleges célja a **myRadio** .txt, de támogatja a **ëRadio** .csv formátumát is.
 
 ## Képernyőkép
 
-![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_Stations_Editor-HU_v1.1.jpg)
+![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_Stations_Editor-HU_v1.2.jpg)
+
+## ✨ Fő funkciók
+
+* Állomáslista szerkesztése (név + URL)
+* ëRadio kompatibilis CSV kezelés (hangerővel)
+* myRadio kompatibilis TXT kezelés
+* Két formátum közti konverzió
+* Közvetlen kapcsolat rádióval állomáslista le/feltöltésére (IP alapján)
+* Állomások ellenőrzése:
+
+  * hibás URL
+  * nem elérhető stream
+  * duplikációk
+* Keresés és szűrés
+* Undo / Redo
+* Drag & drop rendezés
+* Automatikus backup mentés
+
+## 📁 Támogatott formátumok
+
+### myRadio
+
+Station Name<TAB>URL
+
+### ëRadio
+
+Station Name<TAB>URL<TAB>Volume
+
+A hangerő (volume) érték megmarad szerkesztés és mentés során.
+
+## 🌐 Rádió támogatás
+
+### myRadio
+
+* Beolvasás: /api/stations
+* Feltöltés: /upload → /stations.txt
+
+### ëRadio
+
+* Beolvasás: /data/playlist.csv
+* Feltöltés: /upload (plfile)
+
+## 🔄 Konverzió
+
+* CSV → TXT (ëRadio → myRadio)
+* TXT → CSV (myRadio → ëRadio)
+
+Automatikusan történik mentéskor a fájlkiterjesztés alapján.
+
+## 🧠 Használat
+
+1. Add meg a rádió IP címét
+2. Válaszd ki a típust (Auto / myRadio / ëRadio)
+3. Olvasd be a listát vagy nyiss meg fájlt
+4. Szerkeszd az állomásokat
+5. Mentsd vagy töltsd vissza a rádióra
+
+## ⚠️ Megjegyzések
+
+* ëRadio esetén a hangerő oszlop fontos
+* Feltöltés után a rádió újraindítása szükséges lehet
+* Backup automatikusan készül mentés előtt
 
 ---
 
-## Fő funkciók
+## 🇬🇧 Description
 
-- 📡 **Lista letöltése a rádióról** – IP-cím megadásával (myRadio és yoRadio esetén is, utóbbinál a `playlist.csv` fájlt)
-- 💾 **Lista betöltése és mentése** a számítógépről / számítógépre  
-  (olvassa a yoRadio `.csv` formátumát is, belsőleg `stations.txt` formátumban kezeli és menti)
-- ✏️ **Állomások részletes szerkesztése** (név, stream URL, stb.)
-- ✏️ **Képesség az állomásnév kis/nagy betűsre alakaítása**
-- 🔤 **ABC szerinti rendezés** egy kattintással
-- 🖱️ **Drag & drop átrendezés** – az állomásokat szabadon húzogatva tetszőleges sorrendbe rakhatod
-- ➕ **Másik lista hozzáfűzése** (több lista egyesítése)
-- 📤 **Lista visszatöltése a rádióra**  
-  → újraindítás után a rádió már az új, módosított listát használja
+**myRadio Stations Editor** is a lightweight Windows application designed to manage station lists for ESP32-based internet radios.
 
----
-
-## Ellenőrző és karbantartó funkciók
-
-- ✔️ **Stream URL-ek működésének ellenőrzése** (működik-e az adott állomás)
-- 🔍 **Duplikált állomások automatikus keresése**
-- 🧹 **Duplikátumok törlése**  
-  – egyesével  
-  – vagy **egy gombnyomással az összes** duplikátum
-
----
-
-## Lista szerkesztés
-
-- 🆕 **Új állomások** hozzáadása
-- 📄 Meglévő állomások **duplikálása** (biztonságos szerkesztéshez)
-- ✏️ A teljes lista szabad szerkesztése táblázatos felületen
-
----
-
-## Használati cél
-
-A program célja, hogy a **stations.txt** fájl szerkesztése kényelmes, grafikus felületen történjen, anélkül, hogy kézzel kellene szövegszerkesztőben módosítanod a fájlt.
-
-Az exe fájl mérete nagyobb (kb. 30–40 MB), mert **tartalmazza a Python és Qt futtatókörnyezetet** is. Így nem kell külön telepítened semmit a számítógépedre – egyszerűen csak futtatod az exe-t.
-
----
-
-## English Version
-
-**myRadio Stations Editor** is a bilingual (Hungarian/English) Windows application that makes managing the station list (**stations.txt**) of **myRadio** (and partially **yoRadio**) internet radios significantly easier.
-
-The application can load the playlist in two ways:
-- by downloading the current station list directly from the radio using its **IP address**,
-- or by loading an existing list from your computer.
-
----
+It primarily targets **myRadio** .txt, but also supports **ëRadio** .csv format.
 
 ### Screenshot
 
-![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_Stations_Editor-EN_v1.1.jpg)
+![myRadio Stations Editor](https://github.com/gidano/myRadio-Editor/blob/main/myRadio_Stations_Editor-EN_v1.2.jpg)
 
----
+## ✨ Features
 
-### Main Features
+* Edit station list (name + URL)
+* ëRadio CSV support (with volume)
+* myRadio TXT support
+* Format conversion between TXT and CSV
+* Direct connection to a radio for down/uploading station lists (based on IP address)
+* Station validation:
 
-- 📡 **Download list from the radio** via IP address (supports both myRadio and yoRadio – for yoRadio it uses the `playlist.csv` file)
-- 💾 **Load and save list** from/to PC  
-  (It also reads the yoRadio `.csv` format, but internally handles and saves it in the `stations.txt` format)
-- ✏️ **Detailed station editing** (name, stream URL, etc.)
-- ✏️ **Ability to convert station names to uppercase or lowercase**
-- 🔤 **Sort alphabetically** with one click
-- 🖱️ **Drag & drop reordering** – freely rearrange any station in the desired order
-- ➕ **Append another list** (merge multiple station lists)
-- 📤 **Upload list back to the radio**  
-  → after restarting the radio, it will use the new, modified list
+  * invalid URLs
+  * unreachable streams
+  * duplicates
+* Search and filtering
+* Undo / Redo
+* Drag & drop reordering
+* Automatic backup before saving
 
----
+## 📁 Supported formats
 
-### Checking and Maintenance Tools
+### myRadio
 
-- ✔️ **Verify stream URLs** – check whether each station is working
-- 🔍 **Find duplicate stations** automatically
-- 🧹 **Remove duplicates**  
-  – individually  
-  – or **all duplicates at once** with a single button
+Station Name<TAB>URL
 
----
+### ëRadio
 
-### Station List Editing
+Station Name<TAB>URL<TAB>Volume
 
-- 🆕 Add new stations
-- 📄 **Duplicate** existing stations (for safe editing)
-- ✏️ Full free editing of the entire list in a table view
+Volume values are preserved during editing and saving.
 
----
+## 🌐 Radio support
 
-### Purpose
+### myRadio
 
-The goal of the program is to allow comfortable, graphical editing of the **stations.txt** file without the need for manual text editing, which often leads to errors.
+* Read: /api/stations
+* Write: /upload → /stations.txt
 
-The executable is larger (~30–40 MB) because it **includes the Python and Qt runtime**. No additional installation is required on your PC – just run the .exe file.
+### ëRadio
 
----
+* Read: /data/playlist.csv
+* Write: /upload (plfile)
 
-## Direct Download
+## 🔄 Conversion
 
-**[Download myRadio Stations Editor v1.0](https://github.com/gidano/myRadio-Editor/releases/tag/1.0)**
+* CSV → TXT (ëRadio → myRadio)
+* TXT → CSV (myRadio → ëRadio)
 
----
+Handled automatically based on file extension.
 
-Ha szeretnéd, hogy még részletesebb legyen (pl. rendszerkövetelmények, telepítési útmutató, changelog, vagy támogatott rádiók listája), vagy ha finomhangolást szeretnél a szövegen, nyugodtan mondd meg!
+## 🧠 Usage
+
+1. Enter radio IP address
+2. Select type (Auto / myRadio / ëRadio)
+3. Read list or open file
+4. Edit stations
+5. Save or upload back to radio
+
+## ⚠️ Notes
+
+* Volume column is important for ëRadio
+* Radio restart may be required after upload
+* Backup is created automatically before saving

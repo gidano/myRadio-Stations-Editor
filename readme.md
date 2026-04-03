@@ -1,6 +1,6 @@
-# myRadio Stations Editor
+# myRadio Stations Editor HU/EN
 
-## 🇭🇺 Leírás
+## 🇭🇺 Leírás HU
 
 A **myRadio Stations Editor** egy egyszerű, mégis hatékony Windows alkalmazás, amely ESP32 alapú internet rádiók állomáslistájának kezelésére készült.
 
@@ -74,7 +74,7 @@ Automatikusan történik mentéskor a fájlkiterjesztés alapján.
 
 ---
 
-## 🇬🇧 Description
+## 🇬🇧 Description EN
 
 **myRadio Stations Editor** is a lightweight Windows application designed to manage station lists for ESP32-based internet radios.
 

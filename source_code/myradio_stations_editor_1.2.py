@@ -56,6 +56,7 @@ TEXTS = {
         "name": "Station Name",
         "url": "URL",
         "volume": "Vol",
+        "logo": "Logo",
         "status": "Status",
         "upload_ok": "Upload successful.\nPlease restart the radio to apply changes.",
         "open_title": "Open stations list",
@@ -147,6 +148,7 @@ TEXTS = {
         "name": "Állomás",
         "url": "Link",
         "volume": "Hangerő",
+        "logo": "Logó",
         "status": "Státusz",
         "upload_ok": "Feltöltés sikeres.\nA módosításokhoz indítsd újra a rádiót.",
         "open_title": "Állomáslista megnyitása",
@@ -442,6 +444,21 @@ class Editor(QMainWindow):
     def tr(self, key, **kwargs):
         return self.t[key].format(**kwargs)
 
+    def is_yoradio_mode(self):
+        return self.current_data_format == "csv" or self.current_radio_mode == "ëRadio"
+
+    def default_third_value(self):
+        return "0" if self.is_yoradio_mode() else "nologo"
+
+    def third_column_header_text(self):
+        return self.tr("volume") if self.is_yoradio_mode() else self.tr("logo")
+
+    def update_third_column_header(self):
+        if hasattr(self, "table"):
+            self.table.setHorizontalHeaderLabels(
+                ["#", self.tr("name"), self.tr("url"), self.third_column_header_text(), self.tr("status")]
+            )
+
     def _build_ui(self):
         main = QWidget()
         self.setCentralWidget(main)
@@ -700,9 +717,7 @@ class Editor(QMainWindow):
         self.filterBox.setCurrentIndex(index if index >= 0 else 0)
         self.filterBox.blockSignals(False)
 
-        self.table.setHorizontalHeaderLabels(
-            ["#", self.tr("name"), self.tr("url"), self.tr("volume"), self.tr("status")]
-        )
+        self.update_third_column_header()
 
         self.set_progress_idle()
         self.update_summary()
@@ -752,7 +767,7 @@ class Editor(QMainWindow):
                 self.ensure_row_items(r)
                 self.table.item(r, 1).setText(payload.get("name", ""))
                 self.table.item(r, 2).setText(payload.get("url", ""))
-                self.table.item(r, 3).setText(payload.get("volume", "0"))
+                self.table.item(r, 3).setText(payload.get("third", self.default_third_value()))
         finally:
             self.table.blockSignals(False)
             self._suppress_item_changed = False
@@ -825,7 +840,7 @@ class Editor(QMainWindow):
         return {
             "name": self.get_cell_text(row, 1),
             "url": self.get_cell_text(row, 2),
-            "volume": self.get_cell_text(row, 3),
+            "third": self.get_cell_text(row, 3),
         }
 
     def rebuild_from_payloads(self, payloads, selected_row=None):
@@ -839,7 +854,7 @@ class Editor(QMainWindow):
                 self.ensure_row_items(r)
                 self.table.item(r, 1).setText(payload.get("name", ""))
                 self.table.item(r, 2).setText(payload.get("url", ""))
-                self.table.item(r, 3).setText(payload.get("volume", "0"))
+                self.table.item(r, 3).setText(payload.get("third", self.default_third_value()))
         finally:
             self.table.blockSignals(False)
             self._suppress_item_changed = False
@@ -1060,7 +1075,7 @@ class Editor(QMainWindow):
 
         name = self.get_cell_text(r, 1)
         url = self.get_cell_text(r, 2)
-        volume = self.get_cell_text(r, 3)
+        third = self.get_cell_text(r, 3)
 
         new_r = r + 1
         self._suppress_item_changed = True
@@ -1069,7 +1084,7 @@ class Editor(QMainWindow):
             self.ensure_row_items(new_r)
             self.table.item(new_r, 1).setText(name)
             self.table.item(new_r, 2).setText(url)
-            self.table.item(new_r, 3).setText(volume or "0")
+            self.table.item(new_r, 3).setText(third or self.default_third_value())
         finally:
             self._suppress_item_changed = False
         self.update_numbers()
@@ -1085,7 +1100,7 @@ class Editor(QMainWindow):
         self._copied_row_data = {
             "name": self.get_cell_text(r, 1),
             "url": self.get_cell_text(r, 2),
-            "volume": self.get_cell_text(r, 3),
+            "third": self.get_cell_text(r, 3),
         }
         self.statusBar().showMessage(self.tr("status_copied"), 2000)
 
@@ -1103,7 +1118,7 @@ class Editor(QMainWindow):
             self.ensure_row_items(insert_at)
             self.table.item(insert_at, 1).setText(self._copied_row_data["name"])
             self.table.item(insert_at, 2).setText(self._copied_row_data["url"])
-            self.table.item(insert_at, 3).setText(self._copied_row_data.get("volume", "0") or "0")
+            self.table.item(insert_at, 3).setText(self._copied_row_data.get("third", self.default_third_value()) or self.default_third_value())
         finally:
             self._suppress_item_changed = False
 
@@ -1211,6 +1226,44 @@ class Editor(QMainWindow):
         if not append:
             self.table.setRowCount(0)
 
+        self.current_data_format = "txt"
+        self.update_third_column_header()
+
+        self.table.blockSignals(True)
+        try:
+            for raw_line in lines:
+                line = raw_line.strip()
+                if not line or "	" not in line:
+                    continue
+
+                parts = line.split("	")
+                if len(parts) < 2:
+                    continue
+
+                name = parts[0].strip()
+                url = parts[1].strip()
+                logo = parts[2].strip() if len(parts) > 2 else "nologo"
+
+                r = self.table.rowCount()
+                self.table.insertRow(r)
+                self.ensure_row_items(r)
+                self.table.item(r, 1).setText(name)
+                self.table.item(r, 2).setText(url)
+                self.table.item(r, 3).setText(logo if logo else "nologo")
+        finally:
+            self.table.blockSignals(False)
+
+        self.update_numbers()
+        self.check_rows(silent=True)
+        self.mark_dirty()
+
+    def parse_csv_lines(self, lines, append=False):
+        if not append:
+            self.table.setRowCount(0)
+
+        self.current_data_format = "csv"
+        self.update_third_column_header()
+
         self.table.blockSignals(True)
         try:
             for raw_line in lines:
@@ -1239,7 +1292,6 @@ class Editor(QMainWindow):
         self.check_rows(silent=True)
         self.mark_dirty()
 
-
     def convert_csv_text_to_station_lines(self, csv_text):
         converted_lines = []
         from io import StringIO
@@ -1265,10 +1317,10 @@ class Editor(QMainWindow):
                 continue
             name = str(row[0]).strip()
             url = str(row[1]).strip()
-            volume = str(row[2]).strip() if len(row) > 2 else "0"
+            third = str(row[2]).strip() if len(row) > 2 else "0"
             if not name and not url:
                 continue
-            converted_lines.append(f"{name}\t{url}\t{volume}\n")
+            converted_lines.append(f"{name}\t{url}\t{third}\n")
         return converted_lines
 
 
@@ -1292,7 +1344,7 @@ class Editor(QMainWindow):
         for r in range(self.table.rowCount()):
             name = self.get_cell_text(r, 1)
             url = self.get_cell_text(r, 2)
-            volume = self.get_cell_text(r, 3) or "0"
+            third = self.get_cell_text(r, 3) or "0"
             if name and url:
                 lines.append(f"{name}\t{url}\t{volume}\n")
         return lines
@@ -1307,14 +1359,11 @@ class Editor(QMainWindow):
             for r in range(self.table.rowCount()):
                 name = self.get_cell_text(r, 1)
                 url = self.get_cell_text(r, 2)
+                logo = self.get_cell_text(r, 3) or "nologo"
                 if name and url:
-                    f.write(f"{name}\t{url}\n")
+                    f.write(f"{name}\t{url}\t{logo}\n")
 
     def load_station_lines(self, path):
-        if path.lower().endswith(".csv"):
-            with open(path, "r", encoding="utf-8-sig", newline="") as f:
-                return self.convert_csv_text_to_station_lines(f.read())
-
         with open(path, "r", encoding="utf-8") as f:
             return f.readlines()
 
@@ -1323,6 +1372,7 @@ class Editor(QMainWindow):
         if not hasattr(self, "radioBox"):
             return
         self.current_radio_mode = self.radioBox.currentData() or "auto"
+        self.update_third_column_header()
         if self.current_radio_mode == "myradio":
             self.statusBar().showMessage(self.tr("using_radio", name=self.tr("radio_myradio")), 2500)
         elif self.current_radio_mode == "ëRadio":
@@ -1364,7 +1414,7 @@ class Editor(QMainWindow):
                 self.ensure_row_items(r)
                 self.table.item(r, 1).setText(str(station.get("name", "")).strip())
                 self.table.item(r, 2).setText(str(station.get("url", "")).strip())
-                self.table.item(r, 3).setText("0")
+                self.table.item(r, 3).setText(str(station.get("logo", "nologo")).strip() or "nologo")
         finally:
             self.table.blockSignals(False)
 
@@ -1373,6 +1423,7 @@ class Editor(QMainWindow):
         self.mark_dirty(False)
         self.current_file_path = None
         self.current_data_format = "txt"
+        self.update_third_column_header()
         self.reset_history()
 
     def populate_from_yoradio_csv(self, csv_text):
@@ -1381,6 +1432,7 @@ class Editor(QMainWindow):
         self.mark_dirty(False)
         self.current_file_path = None
         self.current_data_format = "csv"
+        self.update_third_column_header()
         self.reset_history()
 
     def open_file(self):
@@ -1391,10 +1443,21 @@ class Editor(QMainWindow):
             return
 
         try:
-            self.parse_txt_lines(self.load_station_lines(path), append=False)
+            file_format = self.detect_file_format(path)
+            if file_format == "csv":
+                with open(path, "r", encoding="utf-8-sig", newline="") as f:
+                    self.current_data_format = "csv"
+                    self.update_third_column_header()
+                    self.parse_csv_lines(self.convert_csv_text_to_station_lines(f.read()), append=False)
+            else:
+                self.current_data_format = "txt"
+                self.update_third_column_header()
+                self.parse_txt_lines(self.load_station_lines(path), append=False)
+
             self.mark_dirty(False)
             self.current_file_path = path
-            self.current_data_format = self.detect_file_format(path)
+            self.current_data_format = file_format
+            self.update_third_column_header()
             self.reset_history()
 
             try:
@@ -1417,11 +1480,19 @@ class Editor(QMainWindow):
             return
 
         try:
-            self.parse_txt_lines(self.load_station_lines(path), append=True)
+            file_format = self.detect_file_format(path)
+            if file_format == "csv":
+                self.current_data_format = "csv"
+                self.update_third_column_header()
+                with open(path, "r", encoding="utf-8-sig", newline="") as f:
+                    self.parse_csv_lines(self.convert_csv_text_to_station_lines(f.read()), append=True)
+            else:
+                self.current_data_format = "txt"
+                self.update_third_column_header()
+                self.parse_txt_lines(self.load_station_lines(path), append=True)
             self.push_history_state()
         except Exception as e:
             QMessageBox.critical(self, self.tr("error"), self.tr("merge_fail", err=e))
-
 
     def create_timestamped_backup(self, path, label="backup"):
         if not path or not os.path.exists(path):
@@ -1464,6 +1535,7 @@ class Editor(QMainWindow):
             self.mark_dirty(False)
             self.current_file_path = path
             self.current_data_format = target_format
+            self.update_third_column_header()
             self.push_history_state()
 
             if backup_path:
@@ -1530,8 +1602,9 @@ class Editor(QMainWindow):
                 for r in range(self.table.rowCount()):
                     name = self.get_cell_text(r, 1)
                     link = self.get_cell_text(r, 2)
+                    logo = self.get_cell_text(r, 3) or "nologo"
                     if name and link:
-                        lines.append(f"{name}\t{link}")
+                        lines.append(f"{name}\t{link}\t{logo}")
                 payload = "\n".join(lines) + ("\n" if lines else "")
                 files = {"file": ("stations.txt", payload, "text/plain")}
                 resp = requests.post(f"http://{ip}/upload", data={"path": "/stations.txt"}, files=files, timeout=20)

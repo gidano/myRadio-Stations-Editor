@@ -1,5 +1,12 @@
 # myRadio Stations Editor
 
+<p align="center">
+  <!--   -->
+  <img src="https://img.shields.io/github/downloads/gidano/myRadio-Stations-Editor/total?style=for-the-badge&cacheSeconds=60" alt="Total Downloads"> 
+  <img src="https://img.shields.io/github/stars/gidano/myRadio-Stations-Editor?style=for-the-badge" alt="Stars">
+  <img src="https://img.shields.io/github/repo-size/gidano/myRadio-Stations-Editor?style=for-the-badge" alt="Repo size">
+</p>
+
 ## 🇭🇺 Leírás
 
 A **myRadio Stations Editor** egy egyszerű, mégis hatékony Windows alkalmazás, amely ESP32 alapú internet rádiók állomáslistájának kezelésére készült.
